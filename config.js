@@ -1,6 +1,6 @@
-// d:/Unknown/config.js
+// d:/Unknown/config.js   <-- এই ফাইলটি খুলে সরাসরি পরিবর্তন করুন
 window.UNKNOWN_CONFIG = {
-  // Vercel/Netlify/Firebase‑এর বিল্ড‑টাইমে ইনজেক্ট হবে
-  supabaseUrl:   process.env.NEXT_PUBLIC_SUPABASE_URL,
-  supabaseAnonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  // সরাসরি Supabase URL এবং Public ANON KEY বসান
+  supabaseUrl: "https://vekujhntxdcvjrrlaxng.supabase.co",
+  supabaseAnonKey: "sb_publishable_c6OZ6bSmUlA27wIqISO13Q_x3W2MG6n"
 };
