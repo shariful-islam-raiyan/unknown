@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080711">
+  <meta name="description" content="UNKNOWN — an AI-driven interactive story and mystery game.">
+  <title>UNKNOWN — Player Command Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+
+  <main id="authView" class="auth-shell">
+    <section class="auth-brand">
+      <div class="brand-mark"><span>U</span></div>
+      <p class="eyebrow">AN INFINITE STORY EXPERIMENT</p>
+      <h1>Every choice<br><span>changes the unknown.</span></h1>
+      <p class="muted auth-copy">A living story. Unpredictable events. Your decisions shape what happens next.</p>
+      <div class="auth-feature-row">
+        <span>✦ Image-led stories</span><span>✦ Persistent progress</span><span>✦ Solo & group play</span>
+      </div>
+    </section>
+
+    <section class="auth-card">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="loginTab" type="button">Log in</button>
+        <button class="auth-tab" id="signupTab" type="button">Create account</button>
+      </div>
+      <div id="authHeading">
+        <p class="eyebrow">WELCOME BACK</p>
+        <h2>Enter your world.</h2>
+        <p class="muted">Sign in to continue your journey.</p>
+      </div>
+      <form id="authForm">
+        <div id="usernameField" class="field hidden">
+          <label for="username">Player username</label>
+          <input id="username" name="username" type="text" minlength="3" maxlength="20" autocomplete="username" placeholder="e.g. ShadowHunter">
+          <small>3–20 characters. Letters, numbers and underscores.</small>
+        </div>
+        <div class="field">
+          <label for="email">Email address</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" minlength="8" autocomplete="current-password" placeholder="At least 8 characters" required>
+        </div>
+        <button class="button button-primary button-full" id="authSubmit" type="submit">Log in <span>↗</span></button>
+      </form>
+      <div id="authMessage" class="message" role="status" aria-live="polite"></div>
+      <div class="auth-divider"><span>OR</span></div>
+      <button id="demoButton" class="button button-ghost button-full" type="button">Preview dashboard (demo)</button>
+      <p class="tiny-note">Demo preview does not create or save a real account. Real accounts use Supabase Authentication.</p>
+    </section>
+    <footer class="auth-footer">UNKNOWN © <span data-year></span> · YOUR STORY IS STILL UNWRITTEN</footer>
+  </main>
+
+  <div id="appView" class="app-shell hidden">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="UNKNOWN dashboard"><span class="brand-icon">U</span><span>UNKNOWN<small>PLAYER COMMAND</small></span></a>
+      <div class="side-label">MENU</div>
+      <nav class="side-nav">
+        <button class="nav-item active" data-page="dashboard"><span>⌂</span> Dashboard</button>
+        <button class="nav-item" data-page="story"><span>◈</span> My Story <em class="nav-soon">SOON</em></button>
+        <button class="nav-item" data-page="mysteries"><span>⌕</span> Mysteries <em class="nav-soon">SOON</em></button>
+        <button class="nav-item" data-page="inventory"><span>▤</span> Inventory <em class="nav-soon">SOON</em></button>
+        <button class="nav-item" data-page="leaderboard"><span>♜</span> Leaderboard <em class="nav-soon">SOON</em></button>
+        <button class="nav-item" data-page="profile"><span>◉</span> Profile</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="level-card">
+          <div class="level-top"><span class="level-avatar" id="sideAvatar">U</span><div><strong id="sideUsername">Unknown Player</strong><small>LEVEL 01 · ROOKIE</small></div></div>
+          <div class="xp-line"><span></span></div><small class="xp-caption">0 / 1,000 XP</small>
+        </div>
+        <button class="nav-item logout-button" id="logoutButton"><span>↪</span> Log out</button>
+      </div>
+    </aside>
+
+    <section class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Open menu">☰</button>
+        <div class="welcome"><span class="eyebrow">WELCOME BACK, PLAYER</span><h2 id="welcomeName">Survivor</h2></div>
+        <div class="top-search"><span>⌕</span><input type="search" placeholder="Search stories, mysteries, achievements..." disabled><kbd>⌘ K</kbd></div>
+        <div class="top-actions"><button class="icon-button" title="Notifications">♧<i></i></button><div class="top-avatar" id="topAvatar">U</div></div>
+      </header>
+
+      <div class="content-wrap">
+        <div class="page-heading"><div><p class="eyebrow">YOUR COMMAND CENTER</p><h1>Dashboard<span class="purple-dot">.</span></h1><p class="muted">Your life is moving. Your next decision is waiting.</p></div><div class="online-pill"><span></span> WORLD ACTIVE</div></div>
+
+        <section class="dashboard-grid">
+          <article class="hero-panel panel">
+            <div class="hero-art">
+              <div class="hero-overlay"></div>
+              <div class="hero-content">
+                <span class="tag tag-purple">THE UNKNOWN AWAITS</span>
+                <p class="hero-kicker">YOUR STORY STARTS HERE</p>
+                <h2>No fixed path.<br><span>No final chapter.</span></h2>
+                <p>Every answer changes the possibilities ahead. Step into a story that responds to you.</p>
+                <button class="button button-primary" id="startButton">START YOUR STORY <span>↗</span></button>
+              </div>
+              <div class="hero-side-note"><span class="pulse"></span> STORY ENGINE <b>READY</b></div>
+            </div>
+            <div class="hero-footer"><span>✦ IMAGE-BASED INTERACTIVE STORY</span><span>SOLO · GROUP · MYSTERY · SURVIVAL</span></div>
+          </article>
+
+          <article class="panel profile-panel">
+            <div class="panel-heading"><div><span class="eyebrow">PLAYER PROFILE</span><h3>Your identity</h3></div><span class="status-dot"></span></div>
+            <div class="profile-main"><div class="profile-avatar" id="profileAvatar">U</div><div><h2 id="profileName">Unknown Player</h2><span class="rank-chip">✦ ROOKIE</span></div></div>
+            <div class="profile-stats">
+              <div><strong id="statScore">0</strong><small>Total score</small></div>
+              <div><strong id="statEvents">0</strong><small>Events</small></div>
+              <div><strong id="statMysteries">0</strong><small>Mysteries</small></div>
+            </div>
+            <div class="profile-bottom"><span>ACCOUNT STATUS</span><b><i></i> <span id="accountStatus">CONNECTED</span></b></div>
+          </article>
+
+          <article class="panel mission-panel">
+            <div class="panel-heading"><div><span class="eyebrow">YOUR NEXT STEP</span><h3>What happens next?</h3></div><span class="panel-icon">✧</span></div>
+            <div class="mission-placeholder"><div class="mission-symbol">?</div><div><strong>Your first story is waiting</strong><p>Start a new journey. The story engine will create your opening situation.</p></div></div>
+            <button class="button button-outline button-full" id="continueButton">CONTINUE JOURNEY <span>→</span></button>
+          </article>
+
+          <article class="panel activity-panel">
+            <div class="panel-heading"><div><span class="eyebrow">YOUR HISTORY</span><h3>Recent activity</h3></div><span class="muted tiny">LATEST FIRST</span></div>
+            <div class="empty-activity"><span>◷</span><div><strong>No events yet</strong><p>Your decisions and story events will appear here.</p></div></div>
+          </article>
+
+          <article class="panel quick-panel">
+            <div class="panel-heading"><div><span class="eyebrow">GAME SYSTEMS</span><h3>Explore UNKNOWN</h3></div></div>
+            <div class="quick-links">
+              <div><span class="quick-icon">◈</span><div><strong>Dynamic stories</strong><small>Every decision shapes your path</small></div><b>↗</b></div>
+              <div><span class="quick-icon">⌕</span><div><strong>Living mysteries</strong><small>Solve one. Life continues.</small></div><b>↗</b></div>
+              <div><span class="quick-icon">♜</span><div><strong>Global competition</strong><small>Earn points through skill</small></div><b>↗</b></div>
+            </div>
+          </article>
+        </section>
+        <footer class="main-footer"><span>UNKNOWN · BUILD 0.1.0</span><span>YOUR STORY IS STILL UNWRITTEN.</span></footer>
+      </div>
+    </section>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
