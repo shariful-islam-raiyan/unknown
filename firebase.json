@@ -1,16 +1,18 @@
 {
   "hosting": {
-    // 👉 আপনার প্রকৃত স্ট্যাটিক ফাইল (index.html, config.js, app.js, ইত্যাদি) যেই ফোল্ডারে আছে সেটি
+    // আপনার index.html, config.js ইত্যাদি যেই ফোল্ডারে আছে। রুটে থাকলে "."
     "public": ".",
-    // এক‑পেজ‑অ্যাপ রাউটার (অথবা হ্যাশ‑বেসড রাউট) দরকার হলে:
-    "rewrites": [
-      { "source": "**", "destination": "/index.html" }
-    ],
-    // (ঐচ্ছিক) ক্যাশ‑নিয়ন্ত্রণ, হেডার ইত্যাদি এখানে যোগ করা যায়
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    // এক‑পেজ‑অ্যাপের জন্য (রাউটিং‑এ "index.html" রি‑ডাইরেক্ট)
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
   }
 }
